@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тестирование ЮKassa API</title>
+    <title>🧪 Тест ЮKassa API</title>
     <style>
         * {
             box-sizing: border-box;
@@ -21,10 +21,10 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
         
@@ -35,10 +35,19 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
+        .config-panel {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
         h1 {
             color: #fff;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 2.5em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
@@ -50,9 +59,42 @@
             padding-bottom: 10px;
         }
         
-        .auth-form {
+        h3 {
+            color: #555;
+            margin: 15px 0 10px 0;
+        }
+        
+        .config-group {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .config-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: #555;
+        }
+        
+        .config-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: monospace;
+            transition: border-color 0.3s;
+        }
+        
+        .config-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .auth-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -108,8 +150,17 @@
             background: linear-gradient(to right, #4CAF50, #45a049);
         }
         
+        .btn-warning {
+            background: linear-gradient(to right, #ff9800, #f57c00);
+        }
+        
         .btn-danger {
             background: linear-gradient(to right, #f44336, #d32f2f);
+        }
+        
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
         }
         
         .btn-group {
@@ -129,6 +180,8 @@
             word-break: break-all;
             margin-top: 10px;
             color: #666;
+            max-height: 100px;
+            overflow-y: auto;
         }
         
         .plans-container {
@@ -136,6 +189,9 @@
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
         }
         
         .plan-card {
@@ -143,6 +199,7 @@
             border-radius: 8px;
             padding: 15px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .plan-card:hover {
@@ -171,6 +228,7 @@
         .plan-description {
             color: #666;
             font-size: 14px;
+            min-height: 40px;
         }
         
         .payment-frame {
@@ -189,23 +247,29 @@
             padding: 15px;
             font-family: 'Consolas', 'Monaco', monospace;
             font-size: 12px;
-            height: 500px;
+            height: 600px;
             overflow-y: auto;
             margin-top: 15px;
         }
         
         .log-entry {
-            margin-bottom: 8px;
-            padding-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #333;
         }
         
         .log-time {
             color: #6a9955;
+            font-size: 11px;
         }
         
         .log-method {
             color: #569cd6;
+            font-weight: bold;
+        }
+        
+        .log-url {
+            color: #9cdcfe;
         }
         
         .log-success {
@@ -214,6 +278,19 @@
         
         .log-error {
             color: #f44336;
+        }
+        
+        .log-json {
+            background: #2d2d2d;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 11px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            color: #ce9178;
         }
         
         .status-indicator {
@@ -238,6 +315,8 @@
             border-radius: 6px;
             padding: 15px;
             margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
         }
         
         .auto-check {
@@ -250,17 +329,59 @@
         .checkbox {
             width: 18px;
             height: 18px;
+            cursor: pointer;
         }
         
-        @media (max-width: 768px) {
+        .test-cards {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .test-card {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            cursor: pointer;
+            border: 1px solid #dee2e6;
+        }
+        
+        .test-card:hover {
+            background: #e9ecef;
+        }
+        
+        @media (max-width: 1200px) {
             .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-form {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <h1>🧪 Тестирование ЮKassa API</h1>
+    <h1>🧪 Тест ЮKassa API</h1>
+    
+    <!-- Панель конфигурации -->
+    <div class="config-panel">
+        <h2>⚙️ Конфигурация</h2>
+        <div class="config-group">
+            <span class="config-label">URL бэкенда:</span>
+            <input type="text" id="apiUrl" class="config-input" value="http://192.168.31.246:8080">
+            <button class="btn btn-small" onclick="saveConfig()">Сохранить</button>
+        </div>
+        <div class="config-group">
+            <span class="config-label">Текущий URL:</span>
+            <span id="currentUrl" style="font-family: monospace; color: #667eea; font-weight: bold;"></span>
+        </div>
+    </div>
     
     <div class="container">
         <!-- Левая панель: Аутентификация и управление -->
@@ -274,70 +395,98 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="password">Пароль:</label>
-                    <input type="password" id="password" placeholder="Пароль" value="securepassword123">
-                </div>
-                
-                <div class="btn-group">
-                    <button class="btn" onclick="register()">Регистрация</button>
-                    <button class="btn btn-secondary" onclick="login()">Войти</button>
+                    <label for="password">Пароль (видимый):</label>
+                    <input type="text" id="password" placeholder="Пароль" value="securepassword123">
                 </div>
             </div>
             
-            <div id="tokenSection" style="display: none;">
-                <h3>Текущий токен:</h3>
+            <div class="btn-group">
+                <button class="btn" onclick="register()">Регистрация</button>
+                <button class="btn btn-secondary" onclick="login()">Войти</button>
+            </div>
+            
+            <div id="tokenSection" style="display: none; margin-top: 20px;">
+                <h3>Текущий JWT токен:</h3>
                 <div id="tokenDisplay" class="token-display"></div>
-                <button class="btn btn-danger" onclick="clearToken()" style="margin-top: 10px;">Очистить токен</button>
+                <button class="btn btn-danger btn-small" onclick="clearToken()" style="margin-top: 10px;">Очистить токен</button>
             </div>
             
             <h2 style="margin-top: 30px;">👤 Пользователь</h2>
-            <button class="btn" onclick="getUserInfo()" style="width: 100%;">/api/user/me</button>
+            <button class="btn" onclick="getUserInfo()" style="width: 100%; margin-bottom: 10px;">GET /api/user/me</button>
+            <button class="btn" onclick="checkSubscription()" style="width: 100%; margin-bottom: 10px;">GET /api/user/subscription</button>
             
             <h2 style="margin-top: 30px;">📋 Планы подписки</h2>
-            <button class="btn" onclick="getPlans()" style="width: 100%; margin-bottom: 15px;">/api/subscription/plans</button>
+            <button class="btn" onclick="getPlans()" style="width: 100%; margin-bottom: 15px;">GET /api/subscription/plans</button>
             
-            <div id="plansContainer" class="plans-container"></div>
+            <div id="plansContainer" class="plans-container">
+                <!-- Планы будут загружены здесь -->
+            </div>
             
             <h2 style="margin-top: 30px;">💳 Оплата</h2>
-            <button class="btn" onclick="createPayment()" style="width: 100%;" id="createPaymentBtn" disabled>Создать платеж (выберите план)</button>
+            <button class="btn" onclick="createPayment()" style="width: 100%;" id="createPaymentBtn" disabled>
+                POST /api/payment/create (выберите план)
+            </button>
             
-            <div id="paymentFrameContainer" style="display: none;">
+            <div id="paymentFrameContainer" style="display: none; margin-top: 15px;">
                 <h3>Оплата через ЮKassa:</h3>
                 <iframe id="paymentFrame" class="payment-frame"></iframe>
                 <button class="btn btn-danger" onclick="closePaymentFrame()" style="margin-top: 10px;">Закрыть окно оплаты</button>
             </div>
         </div>
         
-        <!-- Правая панель: Логи и статус -->
+        <!-- Правая панель: Логи и тестирование -->
         <div class="panel">
-            <h2>📊 Статус подписки</h2>
-            <button class="btn" onclick="checkSubscription()">Проверить подписку</button>
+            <h2>📊 Статус и тестирование</h2>
             
             <div class="auto-check">
                 <input type="checkbox" id="autoCheck" class="checkbox" onchange="toggleAutoCheck()">
-                <label for="autoCheck">Автопроверка каждые 5 секунд</label>
+                <label for="autoCheck">Автопроверка статуса каждые 5 секунд</label>
             </div>
             
             <div id="subscriptionStatus" class="subscription-info" style="display: none;">
                 <!-- Сюда будет вставлен статус подписки -->
             </div>
             
-            <h2 style="margin-top: 30px;">📝 Логи запросов</h2>
-            <div class="logs" id="logs"></div>
+            <div class="test-cards">
+                <h3>💳 Тестовые карты ЮKassa:</h3>
+                <div class="test-card" onclick="copyToClipboard('5555 5555 5555 4444')">
+                    <strong>5555 5555 5555 4444</strong> - Успешная оплата
+                </div>
+                <div class="test-card" onclick="copyToClipboard('2200 0000 0000 0004')">
+                    <strong>2200 0000 0000 0004</strong> - Успех с 3-D Secure (код: 123)
+                </div>
+                <div class="test-card" onclick="copyToClipboard('2202 0000 0000 0005')">
+                    <strong>2202 0000 0000 0005</strong> - Оплата отклонена
+                </div>
+                <small style="color: #666; display: block; margin-top: 5px;">
+                    Любая будущая дата, любой CVC. Кликните чтобы скопировать.
+                </small>
+            </div>
             
-            <div style="margin-top: 20px; display: flex; gap: 10px;">
-                <button class="btn" onclick="clearLogs()">Очистить логи</button>
-                <button class="btn btn-secondary" onclick="testAll()">Пройти полный тест</button>
+            <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="testAll()">🔁 Пройти полный тест</button>
+                <button class="btn btn-warning" onclick="simulateWebhook()">🔄 Симулировать вебхук</button>
+                <button class="btn" onclick="clearLogs()">🗑️ Очистить логи</button>
+            </div>
+            
+            <h2 style="margin-top: 30px;">📝 Детальные логи запросов</h2>
+            <div class="logs" id="logs">
+                <div class="log-entry">
+                    <span class="log-time">[Загрузка...]</span>
+                    <span class="log-method">Инициализация</span>
+                    <span class="log-url">Тестовый интерфейс ЮKassa API</span>
+                </div>
             </div>
         </div>
     </div>
     
     <script>
         // Конфигурация
-        const API_BASE_URL = 'http://192.168.31.246:8080';
+        let API_BASE_URL = localStorage.getItem('api_base_url') || 'http://192.168.31.246:8080';
         let currentToken = localStorage.getItem('jwt_token');
         let selectedPlanId = null;
         let autoCheckInterval = null;
+        let requestCounter = 0;
         
         // Элементы DOM
         const logsElement = document.getElementById('logs');
@@ -348,37 +497,87 @@
         const paymentFrameContainer = document.getElementById('paymentFrameContainer');
         const paymentFrame = document.getElementById('paymentFrame');
         const subscriptionStatus = document.getElementById('subscriptionStatus');
+        const apiUrlInput = document.getElementById('apiUrl');
+        const currentUrlSpan = document.getElementById('currentUrl');
         
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
+            apiUrlInput.value = API_BASE_URL;
+            currentUrlSpan.textContent = API_BASE_URL;
+            
             if (currentToken) {
                 showToken();
             }
-            getPlans();
+            
+            log('Тестовый интерфейс инициализирован', 'info');
+            log(`Базовый URL: ${API_BASE_URL}`, 'info');
+            
+            // Автоматически получаем планы при загрузке
+            setTimeout(() => {
+                getPlans();
+            }, 1000);
         });
         
         // ========================
-        // Логирование
+        // Управление конфигурацией
         // ========================
         
-        function log(message, type = 'info') {
+        function saveConfig() {
+            const newUrl = apiUrlInput.value.trim();
+            if (newUrl && newUrl !== API_BASE_URL) {
+                API_BASE_URL = newUrl;
+                localStorage.setItem('api_base_url', newUrl);
+                currentUrlSpan.textContent = newUrl;
+                log(`URL бэкенда изменен на: ${newUrl}`, 'success');
+                alert('Настройки сохранены!');
+            }
+        }
+        
+        // ========================
+        // Расширенное логирование
+        // ========================
+        
+        function log(message, type = 'info', data = null) {
+            requestCounter++;
             const now = new Date();
             const timeString = now.toLocaleTimeString();
             const logEntry = document.createElement('div');
             logEntry.className = 'log-entry';
             
-            logEntry.innerHTML = `
-                <span class="log-time">[${timeString}]</span>
-                <span class="log-${type}">${message}</span>
+            let logContent = `
+                <div>
+                    <span class="log-time">[${timeString}]</span>
+                    <span class="log-method">#${requestCounter}</span>
+                    <span class="log-${type}">${message}</span>
+                </div>
             `;
             
+            if (data) {
+                logContent += `
+                    <div class="log-json">${JSON.stringify(data, null, 2)}</div>
+                `;
+            }
+            
+            logEntry.innerHTML = logContent;
             logsElement.appendChild(logEntry);
             logsElement.scrollTop = logsElement.scrollHeight;
         }
         
         function clearLogs() {
             logsElement.innerHTML = '';
+            requestCounter = 0;
             log('Логи очищены', 'info');
+        }
+        
+        // ========================
+        // Вспомогательные функции
+        // ========================
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                log(`Скопировано в буфер: ${text}`, 'success');
+                alert(`Скопировано: ${text}`);
+            });
         }
         
         // ========================
@@ -400,7 +599,7 @@
         }
         
         // ========================
-        // API вызовы
+        // API вызовы с детальным логированием
         // ========================
         
         async function apiCall(endpoint, method = 'GET', body = null, requiresAuth = false) {
@@ -414,27 +613,38 @@
             
             if (requiresAuth && currentToken) {
                 options.headers['Authorization'] = `Bearer ${currentToken}`;
+                log(`Заголовок Authorization: Bearer ${currentToken.substring(0, 20)}...`, 'info');
             }
             
             if (body) {
                 options.body = JSON.stringify(body);
+                log(`Отправка запроса ${method} ${endpoint}`, 'method', body);
+            } else {
+                log(`Отправка запроса ${method} ${endpoint}`, 'method');
             }
-            
-            log(`${method} ${endpoint}`, 'method');
             
             try {
                 const response = await fetch(url, options);
-                const data = await response.json();
+                const responseText = await response.text();
+                let data;
                 
-                log(`Ответ: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                try {
+                    data = JSON.parse(responseText);
+                } catch {
+                    data = { raw: responseText };
+                }
+                
+                const statusInfo = `${response.status} ${response.statusText}`;
                 
                 if (response.ok) {
-                    return { success: true, data };
+                    log(`Успешный ответ: ${statusInfo}`, 'success', data);
+                    return { success: true, data, response };
                 } else {
-                    return { success: false, data, status: response.status };
+                    log(`Ошибка ответа: ${statusInfo}`, 'error', data);
+                    return { success: false, data, response, status: response.status };
                 }
             } catch (error) {
-                log(`Ошибка: ${error.message}`, 'error');
+                log(`Сетевая ошибка: ${error.message}`, 'error');
                 return { success: false, error: error.message };
             }
         }
@@ -455,11 +665,9 @@
             const result = await apiCall('/api/auth/register', 'POST', { email, password });
             
             if (result.success) {
-                log(`✅ Регистрация успешна: ${result.data.email}`, 'success');
-                alert('Регистрация успешна! Теперь войдите в систему.');
+                alert(`✅ Регистрация успешна: ${result.data.email}\nТеперь войдите в систему.`);
             } else {
-                log(`❌ Ошибка регистрации: ${result.data?.message}`, 'error');
-                alert(`Ошибка: ${result.data?.message}`);
+                alert(`❌ Ошибка регистрации: ${result.data?.message || 'Неизвестная ошибка'}`);
             }
         }
         
@@ -478,11 +686,9 @@
                 currentToken = result.data.token;
                 localStorage.setItem('jwt_token', currentToken);
                 showToken();
-                log(`✅ Вход успешен. Токен сохранен`, 'success');
-                alert('Вход успешен!');
+                alert('✅ Вход успешен! Токен сохранен.');
             } else {
-                log(`❌ Ошибка входа: ${result.data?.message}`, 'error');
-                alert(`Ошибка: ${result.data?.message}`);
+                alert(`❌ Ошибка входа: ${result.data?.message || 'Неизвестная ошибка'}`);
             }
         }
         
@@ -496,14 +702,7 @@
                 return;
             }
             
-            const result = await apiCall('/api/user/me', 'GET', null, true);
-            
-            if (result.success) {
-                log(`✅ Информация о пользователе получена: ${JSON.stringify(result.data)}`, 'success');
-                alert(`ID: ${result.data.user.id}\nEmail: ${result.data.user.email}`);
-            } else {
-                log(`❌ Ошибка: ${result.data?.error || 'Неизвестная ошибка'}`, 'error');
-            }
+            await apiCall('/api/user/me', 'GET', null, true);
         }
         
         // ========================
@@ -513,34 +712,47 @@
         async function getPlans() {
             const result = await apiCall('/api/subscription/plans', 'GET');
             
-            if (result.success) {
+            if (result.success && Array.isArray(result.data)) {
                 displayPlans(result.data);
-                log(`✅ Получено планов: ${result.data.length}`, 'success');
             } else {
-                log(`❌ Ошибка получения планов`, 'error');
+                plansContainer.innerHTML = '<p style="color: #f44336;">Не удалось загрузить планы</p>';
             }
         }
         
         function displayPlans(plans) {
             plansContainer.innerHTML = '';
             
+            if (plans.length === 0) {
+                plansContainer.innerHTML = '<p style="color: #666;">Планы подписки отсутствуют</p>';
+                return;
+            }
+            
             plans.forEach(plan => {
                 const planCard = document.createElement('div');
                 planCard.className = 'plan-card';
                 planCard.dataset.planId = plan.id;
                 
+                const priceRubles = (plan.priceAmount / 100).toFixed(2);
+                
                 planCard.innerHTML = `
                     <div class="plan-title">${plan.name}</div>
-                    <div class="plan-price">${(plan.priceAmount / 100).toFixed(2)} ${plan.priceCurrency}</div>
-                    <div class="plan-description">${plan.description || 'Без описания'}</div>
+                    <div class="plan-price">${priceRubles} ${plan.priceCurrency}</div>
+                    <div class="plan-description">${plan.description || 'Описание отсутствует'}</div>
                     <div style="margin-top: 10px; font-size: 14px; color: #666;">
-                        Длительность: ${plan.durationDays} дней
+                        <strong>ID:</strong> ${plan.id}<br>
+                        <strong>Длительность:</strong> ${plan.durationDays} дней<br>
+                        <strong>Статус:</strong> ${plan.isActive ? 'Активен' : 'Неактивен'}
                     </div>
                 `;
                 
                 planCard.addEventListener('click', () => selectPlan(plan.id));
                 plansContainer.appendChild(planCard);
             });
+            
+            // Автоматически выбираем первый план
+            if (plans.length > 0) {
+                selectPlan(plans[0].id);
+            }
         }
         
         function selectPlan(planId) {
@@ -555,7 +767,7 @@
                 selectedCard.classList.add('selected');
                 selectedPlanId = planId;
                 createPaymentBtn.disabled = false;
-                log(`📋 Выбран план ID: ${planId}`, 'info');
+                log(`Выбран план подписки ID: ${planId}`, 'info');
             }
         }
         
@@ -577,7 +789,11 @@
             const result = await apiCall('/api/payment/create', 'POST', { planId: selectedPlanId }, true);
             
             if (result.success && result.data.confirmationUrl) {
-                log(`✅ Платеж создан. URL для оплаты: ${result.data.confirmationUrl}`, 'success');
+                log(`Создан платеж. Confirmation URL получен`, 'success', {
+                    paymentId: result.data.paymentId,
+                    subscriptionId: result.data.subscriptionId,
+                    confirmationUrlShort: result.data.confirmationUrl.substring(0, 100) + '...'
+                });
                 
                 // Показываем iframe с формой оплаты ЮKassa
                 paymentFrame.src = result.data.confirmationUrl;
@@ -587,10 +803,9 @@
                 // Начинаем автопроверку статуса
                 startAutoCheck();
                 
-                alert('Переходим к оплате... Откроется окно ЮKassa.');
+                alert(`✅ Платеж создан!\n\nОткрывается окно ЮKassa для оплаты.\n\nПосле оплаты статус подписки обновится автоматически.`);
             } else {
-                log(`❌ Ошибка создания платежа: ${result.data?.message}`, 'error');
-                alert(`Ошибка: ${result.data?.message}`);
+                alert(`❌ Ошибка создания платежа: ${result.data?.message || 'Неизвестная ошибка'}`);
             }
         }
         
@@ -598,7 +813,7 @@
             paymentFrameContainer.style.display = 'none';
             paymentFrame.style.display = 'none';
             paymentFrame.src = '';
-            log('Окно оплаты закрыто', 'info');
+            log('Окно оплаты закрыто вручную', 'info');
         }
         
         // ========================
@@ -615,10 +830,12 @@
             
             if (result.success) {
                 displaySubscriptionStatus(result.data);
-                log(`✅ Статус подписки получен`, 'success');
             } else {
-                log(`❌ Ошибка проверки подписки: ${result.data?.message}`, 'error');
-                subscriptionStatus.innerHTML = `<p style="color: #f44336;">Ошибка: ${result.data?.message}</p>`;
+                subscriptionStatus.innerHTML = `
+                    <p style="color: #f44336;">
+                        <strong>Ошибка:</strong> ${result.data?.message || 'Не удалось получить статус'}
+                    </p>
+                `;
                 subscriptionStatus.style.display = 'block';
             }
         }
@@ -626,24 +843,29 @@
         function displaySubscriptionStatus(data) {
             if (data.hasActiveSubscription && data.subscription) {
                 const sub = data.subscription;
+                const startDate = sub.startDate ? new Date(sub.startDate).toLocaleString() : 'Не указано';
+                const endDate = new Date(sub.endDate).toLocaleString();
+                
                 subscriptionStatus.innerHTML = `
-                    <h3 style="color: #4CAF50; margin-bottom: 15px;">
+                    <h3 style="color: #4CAF50;">
                         <span class="status-indicator status-active"></span>
-                        Подписка активна!
+                        ✅ Подписка активна!
                     </h3>
+                    <p><strong>ID подписки:</strong> ${sub.id}</p>
                     <p><strong>План:</strong> ${sub.planName}</p>
                     <p><strong>Статус:</strong> ${sub.status}</p>
-                    <p><strong>Начало:</strong> ${sub.startDate ? new Date(sub.startDate).toLocaleString() : 'Не указано'}</p>
-                    <p><strong>Окончание:</strong> ${new Date(sub.endDate).toLocaleString()}</p>
+                    <p><strong>Начало:</strong> ${startDate}</p>
+                    <p><strong>Окончание:</strong> ${endDate}</p>
                     <p><strong>Активна:</strong> ${sub.isActive ? 'Да' : 'Нет'}</p>
                 `;
             } else {
                 subscriptionStatus.innerHTML = `
-                    <h3 style="color: #f44336; margin-bottom: 15px;">
+                    <h3 style="color: #f44336;">
                         <span class="status-indicator status-inactive"></span>
-                        Подписка не активна
+                        ❌ Подписка не активна
                     </h3>
                     <p>${data.message || 'У вас нет активной подписки'}</p>
+                    <p><em>Создайте и оплатите подписку, чтобы активировать доступ</em></p>
                 `;
             }
             
@@ -673,9 +895,9 @@
                 if (currentToken) {
                     checkSubscription();
                 }
-            }, 5000); // Каждые 5 секунд
+            }, 5000);
             
-            log('Автопроверка статуса подписки включена (каждые 5 сек)', 'info');
+            log('Автопроверка статуса подписки включена (каждые 5 секунд)', 'info');
         }
         
         function stopAutoCheck() {
@@ -687,46 +909,140 @@
         }
         
         // ========================
-        // Тестирование всего флоу
+        // Симуляция вебхука (для тестирования)
+        // ========================
+        
+        async function simulateWebhook() {
+            if (!currentToken) {
+                alert('Сначала войдите в систему');
+                return;
+            }
+            
+            // Сначала создаем платеж
+            if (!selectedPlanId) {
+                alert('Сначала выберите план подписки');
+                return;
+            }
+            
+            const paymentResult = await apiCall('/api/payment/create', 'POST', { planId: selectedPlanId }, true);
+            
+            if (!paymentResult.success) {
+                alert('Не удалось создать платеж для теста');
+                return;
+            }
+            
+            // Симулируем вебхук
+            const webhookData = {
+                type: "notification",
+                event: "payment.succeeded",
+                object: {
+                    id: "test_payment_" + Date.now(),
+                    status: "succeeded",
+                    amount: {
+                        value: "299.00",
+                        currency: "RUB"
+                    },
+                    metadata: {
+                        payment_id: paymentResult.data.paymentId.toString(),
+                        subscription_id: paymentResult.data.subscriptionId.toString(),
+                        user_id: "1",
+                        plan_id: selectedPlanId.toString()
+                    },
+                    created_at: new Date().toISOString()
+                }
+            };
+            
+            log('Симуляция отправки вебхука от ЮKassa', 'info', webhookData);
+            
+            // Отправляем вебхук на сервер
+            const response = await fetch(`${API_BASE_URL}/api/payment/webhook/yookassa`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookData)
+            });
+            
+            if (response.ok) {
+                log('Вебхук успешно отправлен и обработан', 'success');
+                alert('✅ Вебхук успешно симулирован! Проверьте статус подписки.');
+            } else {
+                log(`Ошибка обработки вебхука: ${response.status}`, 'error');
+                alert('❌ Ошибка при симуляции вебхука');
+            }
+        }
+        
+        // ========================
+        // Полное тестирование
         // ========================
         
         async function testAll() {
-            log('🚀 Начинаем полное тестирование...', 'info');
+            log('🚀 Начинаем полное автоматическое тестирование...', 'info');
             
-            // 1. Регистрация
-            const email = `test${Date.now()}@example.com`;
-            const password = 'test123';
-            
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-            
-            await register();
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // 2. Вход
-            await login();
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // 3. Получение планов
-            await getPlans();
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // 4. Выбор первого плана
-            const firstPlanCard = document.querySelector('.plan-card');
-            if (firstPlanCard) {
-                const planId = firstPlanCard.dataset.planId;
-                selectPlan(planId);
-                log(`Автоматически выбран план ID: ${planId}`, 'info');
+            try {
+                // 1. Регистрация нового пользователя
+                const email = `test${Date.now()}@example.com`;
+                const password = 'test123';
                 
-                // 5. Создание платежа
+                document.getElementById('email').value = email;
+                document.getElementById('password').value = password;
+                
+                log('Шаг 1: Регистрация нового пользователя', 'info');
+                await register();
                 await new Promise(resolve => setTimeout(resolve, 1000));
-                await createPayment();
                 
-                log('✅ Полное тестирование завершено. Перейдите к оплате в открывшемся окне.', 'success');
-            } else {
-                log('❌ Не удалось найти планы для тестирования', 'error');
+                // 2. Вход
+                log('Шаг 2: Вход в систему', 'info');
+                await login();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 3. Получение информации о пользователе
+                log('Шаг 3: Получение информации о пользователе', 'info');
+                await getUserInfo();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 4. Получение планов
+                log('Шаг 4: Получение планов подписки', 'info');
+                await getPlans();
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // 5. Выбор плана (если есть)
+                if (selectedPlanId) {
+                    log('Шаг 5: Создание платежа', 'info');
+                    await createPayment();
+                    
+                    log('✅ Полное тестирование завершено!', 'success');
+                    alert('✅ Автоматическое тестирование завершено!\n\nОткрылось окно оплаты ЮKassa.\n\nДля завершения теста:\n1. Оплатите тестовой картой\n2. Дождитесь автопроверки статуса\n3. Убедитесь, что подписка активировалась');
+                } else {
+                    log('❌ Не удалось найти планы для тестирования', 'error');
+                    alert('Не удалось найти планы подписки для тестирования');
+                }
+            } catch (error) {
+                log(`❌ Ошибка при автоматическом тестировании: ${error.message}`, 'error');
+                alert(`Ошибка тестирования: ${error.message}`);
             }
         }
+        
+        // ========================
+        // Глобальные слушатели событий
+        // ========================
+        
+        // Автоматическое обновление URL при изменении
+        apiUrlInput.addEventListener('change', saveConfig);
+        
+        // Enter для сохранения конфигурации
+        apiUrlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                saveConfig();
+            }
+        });
+        
+        // Инициализация тестовых данных
+        setTimeout(() => {
+            log('💡 Подсказка: Нажмите "Пройти полный тест" для автоматического тестирования', 'info');
+            log('💳 Для оплаты используйте тестовые карты из правой панели', 'info');
+            log('⚙️ URL бэкенда можно изменить в верхней панели', 'info');
+        }, 2000);
     </script>
 </body>
 </html>
